@@ -1,15 +1,9 @@
-import md5 from 'md5';
-import UsersSchema from "../schema/users.schema.js";
-async function login(req, res) {
-    const user = await UsersSchema.findOne({ login });
-    if (!user) {
-        return res.status(401).json({message: 'Invalid credentials'});
-    }
+import express from 'express';
+const router = express.Router();
+import authController from '../controllers/authController.js';
+import { validateSchema, schemas } from '../midleware/validation.js';
 
-    const hashedPassword = md5(hashedPassword);
+router.post('/register', validateSchema(schemas.register), authController.register);
+router.post('/login', validateSchema(schemas.login), authController.login);
 
-    if (user.password !== hashedPassword) {
-        return res.status(401).json({message: 'Invalid credentials'});
-    }
-}
-console.log(login)
+export default router;

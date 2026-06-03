@@ -1,10 +1,29 @@
 {
-  "name": "${PROJECT_NAME}",
+  "name": "samvel_hakobyan_exam",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
   },
-  "private": true
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "config": "^4.4.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "joi": "^18.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "md5": "^2.3.0",
+    "moment": "^2.30.1",
+    "mysql2": "^3.22.4",
+    "nodemon": "^3.1.14",
+    "path": "^0.12.7",
+    "routes": "^2.1.0",
+    "url": "^0.11.4",
+    "util": "^0.12.5",
+    "utils": "^0.3.1",
+    "uuid": "^14.0.0"
+  }
 }

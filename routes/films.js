@@ -1,21 +1,16 @@
-import md5 from 'md5';
-import UsersSchema from "../schema/users.schema.js";
+import express from 'express';
+import router from 'router';
 
- const register = async (req, res) => {
-    const { email, password } = req.body;
+import filmController from '../controllers/filmController.js';
+import { verifyToken, isAdmin } from '../middleware/auth.js';
+import { validateSchema, schemas } from '../middleware/validation.js';
 
-    const existingUser = await UsersSchema.findOne({ email });
-    if (existingUser) {
-        return res.status(400).json({ message: 'Email already exists' });
-    }
 
-    const hashedPassword = md5(password);
+router.get('/', filmController.getAllFilms);
+router.get('/:id', filmController.getFilmById);
 
-    const user = await UsersSchema.create({
-        email,
-        password: hashedPassword
-    });
+router.post('/', verifyToken, isAdmin, validateSchema(schemas.film), filmController.createFilm);
+router.put('/:id', verifyToken, isAdmin, validateSchema(schemas.film), filmController.updateFilm);
+router.delete('/:id', verifyToken, isAdmin, filmController.deleteFilm);
 
-    res.json({ message: 'User created', userId: user._id });
-};
- export default register;
+export default router
